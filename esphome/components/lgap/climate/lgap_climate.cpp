@@ -65,7 +65,7 @@ namespace esphome
 
       traits.set_supported_modes({
           climate::CLIMATE_MODE_OFF,
-          #climate::CLIMATE_MODE_HEAT,
+          //climate::CLIMATE_MODE_HEAT,
           climate::CLIMATE_MODE_DRY,
           climate::CLIMATE_MODE_COOL,
           climate::CLIMATE_MODE_FAN_ONLY,
@@ -109,11 +109,11 @@ namespace esphome
           {
             this->power_state_ = 0;
           }
-          #else if (mode == climate::CLIMATE_MODE_HEAT)
-          #{
-            #this->power_state_ = 1;
-            #this->mode_ = 4;
-          #}
+          //else if (mode == climate::CLIMATE_MODE_HEAT)
+          //{
+            //this->power_state_ = 1;
+            //this->mode_ = 4;
+          //}
           else if (mode == climate::CLIMATE_MODE_DRY)
           {
             this->power_state_ = 1;
@@ -277,10 +277,10 @@ namespace esphome
           // heat/cool is essentially auto
           this->mode = climate::CLIMATE_MODE_AUTO;
         }
-        #else if (mode == 4)
-        #{
-          #this->mode = climate::CLIMATE_MODE_HEAT;
-        #}
+        //else if (mode == 4)
+        //{
+          //this->mode = climate::CLIMATE_MODE_HEAT;
+        //}
         else
         {
           ESP_LOGE(TAG, "Invalid mode received: %d", mode);

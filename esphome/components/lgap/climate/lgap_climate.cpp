@@ -10,8 +10,8 @@ namespace esphome
   {
 
     static const char *const TAG = "lgap.climate";
-    static const uint8_t MIN_TEMPERATURE = 16;
-    static const uint8_t MAX_TEMPERATURE = 36;
+    static const uint8_t MIN_TEMPERATURE = 18;
+    static const uint8_t MAX_TEMPERATURE = 30;
 
     void LGAPHVACClimate::dump_config()
     {
@@ -65,11 +65,11 @@ namespace esphome
 
       traits.set_supported_modes({
           climate::CLIMATE_MODE_OFF,
-          climate::CLIMATE_MODE_HEAT,
+          #climate::CLIMATE_MODE_HEAT,
           climate::CLIMATE_MODE_DRY,
           climate::CLIMATE_MODE_COOL,
           climate::CLIMATE_MODE_FAN_ONLY,
-          climate::CLIMATE_MODE_HEAT_COOL,
+          climate::CLIMATE_MODE_AUTO,
       });
 
       traits.set_supported_fan_modes({
@@ -109,11 +109,11 @@ namespace esphome
           {
             this->power_state_ = 0;
           }
-          else if (mode == climate::CLIMATE_MODE_HEAT)
-          {
-            this->power_state_ = 1;
-            this->mode_ = 4;
-          }
+          #else if (mode == climate::CLIMATE_MODE_HEAT)
+          #{
+            #this->power_state_ = 1;
+            #this->mode_ = 4;
+          #}
           else if (mode == climate::CLIMATE_MODE_DRY)
           {
             this->power_state_ = 1;
@@ -129,7 +129,7 @@ namespace esphome
             this->power_state_ = 1;
             this->mode_ = 2;
           }
-          else if (mode == climate::CLIMATE_MODE_HEAT_COOL)
+          else if (mode == climate::CLIMATE_MODE_AUTO)
           {
             this->power_state_ = 1;
             this->mode_ = 3;
@@ -275,12 +275,12 @@ namespace esphome
         else if (mode == 3)
         {
           // heat/cool is essentially auto
-          this->mode = climate::CLIMATE_MODE_HEAT_COOL;
+          this->mode = climate::CLIMATE_MODE_AUTO;
         }
-        else if (mode == 4)
-        {
-          this->mode = climate::CLIMATE_MODE_HEAT;
-        }
+        #else if (mode == 4)
+        #{
+          #this->mode = climate::CLIMATE_MODE_HEAT;
+        #}
         else
         {
           ESP_LOGE(TAG, "Invalid mode received: %d", mode);
